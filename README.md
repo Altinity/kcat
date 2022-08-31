@@ -108,6 +108,10 @@ On Ubuntu or Debian: `sudo apt-get install librdkafka-dev libyajl-dev`
     nuget restore
     msbuild
 
+### Build docker multiarch images
+
+    docker buildx build -t altinity/kcat:$VERSION . --push --platform=linux/arm64,linux/amd64
+
 ## Quick build
 
 The bootstrap.sh build script will download and build the required dependencies,
