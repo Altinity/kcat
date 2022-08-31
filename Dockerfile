@@ -1,8 +1,8 @@
-FROM alpine:3.10
+FROM alpine:3.16.2
 
 COPY . /usr/src/kcat
 
-ENV BUILD_DEPS bash make gcc g++ cmake curl pkgconfig python perl bsd-compat-headers zlib-dev zstd-dev zstd-libs lz4-dev openssl-dev curl-dev
+ENV BUILD_DEPS bash make gcc g++ cmake curl pkgconfig python3 perl bsd-compat-headers zlib-dev zstd-dev zstd-libs lz4-dev openssl-dev curl-dev tar gzip
 
 ENV RUN_DEPS libcurl lz4-libs zstd-libs ca-certificates
 
@@ -12,7 +12,7 @@ ENV RUN_DEPS libcurl lz4-libs zstd-libs ca-certificates
 #ENV RUN_DEPS_EXTRA libsasl heimdal-libs krb5
 
 RUN echo Installing ; \
-  apk add --no-cache --virtual .dev_pkgs $BUILD_DEPS $BUILD_DEPS_EXTRA && \
+  apk add --no-cache --virtual .dev_pkgs $BUILD_DEPS $BUILD_DEPS_EXTRA && ln -sf python3 /usr/bin/python &&\
   apk add --no-cache $RUN_DEPS $RUN_DEPS_EXTRA && \
   echo Building && \
   cd /usr/src/kcat && \
